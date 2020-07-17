@@ -1,0 +1,30 @@
+--- original/net/minecraft/client/Minecraft.java
++++ changed/net/minecraft/client/Minecraft.java
+@@ -35,6 +35,10 @@
+ import java.util.concurrent.Executors;
+ import java.util.concurrent.FutureTask;
+ import javax.imageio.ImageIO;
++
++import dev.minecraftbox.event.EventBus;
++import dev.minecraftbox.event.events.core.InitializationEvent;
++import dev.minecraftbox.event.events.core.PreInitializationEvent;
+ import net.minecraft.block.Block;
+ import net.minecraft.block.material.Material;
+ import net.minecraft.client.audio.MusicTicker;
+@@ -408,6 +412,7 @@
+      * Starts the game: initializes the canvas, the title, the settings, etcetera.
+      */
+     private void startGame() throws LWJGLException, IOException {
++        EventBus.INSTANCE.post(new PreInitializationEvent());
+         this.gameSettings = new GameSettings(this, this.mcDataDir);
+         this.defaultResourcePacks.add(this.mcDefaultResourcePack);
+         this.startTimerHackThread();
+@@ -524,6 +529,8 @@
+         }
+ 
+         this.renderGlobal.makeEntityOutlineShader();
++
++        EventBus.INSTANCE.post(new InitializationEvent());
+     }
+ 
+     private void registerMetadataSerializers() {
