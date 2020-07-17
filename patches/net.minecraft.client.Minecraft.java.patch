@@ -1,6 +1,6 @@
 --- original/net/minecraft/client/Minecraft.java
 +++ changed/net/minecraft/client/Minecraft.java
-@@ -35,6 +35,10 @@
+@@ -35,6 +35,12 @@
  import java.util.concurrent.Executors;
  import java.util.concurrent.FutureTask;
  import javax.imageio.ImageIO;
@@ -8,10 +8,12 @@
 +import dev.minecraftbox.event.EventBus;
 +import dev.minecraftbox.event.events.core.InitializationEvent;
 +import dev.minecraftbox.event.events.core.PreInitializationEvent;
++import dev.minecraftbox.event.events.gui.GuiCloseEvent;
++import dev.minecraftbox.event.events.gui.GuiOpenEvent;
  import net.minecraft.block.Block;
  import net.minecraft.block.material.Material;
  import net.minecraft.client.audio.MusicTicker;
-@@ -408,6 +412,7 @@
+@@ -408,6 +414,7 @@
       * Starts the game: initializes the canvas, the title, the settings, etcetera.
       */
      private void startGame() throws LWJGLException, IOException {
@@ -19,7 +21,7 @@
          this.gameSettings = new GameSettings(this, this.mcDataDir);
          this.defaultResourcePacks.add(this.mcDefaultResourcePack);
          this.startTimerHackThread();
-@@ -524,6 +529,8 @@
+@@ -524,6 +531,8 @@
          }
  
          this.renderGlobal.makeEntityOutlineShader();
@@ -28,3 +30,15 @@
      }
  
      private void registerMetadataSerializers() {
+@@ -863,9 +872,11 @@
+             int j = scaledresolution.getScaledHeight();
+             ((GuiScreen)guiScreenIn).setWorldAndResolution(this, i, j);
+             this.skipRenderWorld = false;
++            EventBus.INSTANCE.post(new GuiOpenEvent(guiScreenIn));
+         } else {
+             this.mcSoundHandler.resumeSounds();
+             this.setIngameFocus();
++            EventBus.INSTANCE.post(new GuiCloseEvent());
+         }
+     }
+ 
