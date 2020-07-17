@@ -7,8 +7,8 @@ buildscript {
     dependencies {
         // MCGradle 2.0.10
         classpath 'com.github.asbyth:MCGradle:09f84c1c42906c19e0f7902512a9215481279b4e'
-        }
     }
+}
 
 plugins {
     id 'java'
@@ -18,20 +18,19 @@ plugins {
 def kotlinVersion = '1.3.72'
 
 apply plugin: 'club.ampthedev.mcgradle'
-apply plugin: 'maven-publish'
 
+//noinspection GroovyUnusedAssignment
 sourceCompatibility = targetCompatibility = '1.8'
 compileJava.options.encoding = 'UTF-8'
 
 mcgradle {
     version '1.8.9'
+    gitVersion = true
     clientMainClass = 'net.minecraft.launchwrapper.Launch'
     args += ["--tweakClass", "dev.minecraftbox.launch.BoxTweaker"]
 }
 
 group 'dev.minecraftbox'
-version '0.1-DEV'
-
 mcgradle.boxVersion = project.version
 
 configurations {
@@ -63,6 +62,10 @@ dependencies {
 
 jar {
     dependsOn configurations.compile
-    from { configurations.embed.collect { it.isDirectory() ? it : zipTree(it) } }
+    from {
+        configurations.embed.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
     exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
 }

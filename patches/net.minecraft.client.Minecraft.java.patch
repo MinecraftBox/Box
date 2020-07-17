@@ -32,23 +32,15 @@
      }
  
      private void registerMetadataSerializers() {
-@@ -857,6 +868,9 @@
-         this.currentScreen = (GuiScreen)guiScreenIn;
- 
-         if (guiScreenIn != null) {
-+            GuiOpenEvent guiOpenEvent = new GuiOpenEvent(guiScreenIn);
-+            EventBus.INSTANCE.post(guiOpenEvent);
-+            if (guiOpenEvent.isCancelled()) return;
-             this.setIngameNotInFocus();
-             ScaledResolution scaledresolution = new ScaledResolution(this);
-             int i = scaledresolution.getScaledWidth();
-@@ -864,6 +878,9 @@
+@@ -863,9 +874,11 @@
+             int j = scaledresolution.getScaledHeight();
              ((GuiScreen)guiScreenIn).setWorldAndResolution(this, i, j);
              this.skipRenderWorld = false;
++            EventBus.INSTANCE.post(new GuiOpenEvent(guiScreenIn));
          } else {
-+            GuiCloseEvent guiCloseEvent = new GuiCloseEvent();
-+            EventBus.INSTANCE.post(guiCloseEvent);
-+            if (guiCloseEvent.isCancelled()) return;
              this.mcSoundHandler.resumeSounds();
              this.setIngameFocus();
++            EventBus.INSTANCE.post(new GuiCloseEvent());
          }
+     }
+ 
