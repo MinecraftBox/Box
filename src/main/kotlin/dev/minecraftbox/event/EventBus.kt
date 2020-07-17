@@ -60,7 +60,8 @@ object EventBus {
                     if (subs.containsKey(event)) {
                         // sorts array on insertion
                         subs[event]?.add(EventSubscriber(obj, method, priority))
-                        subs[event] = CopyOnWriteArrayList(subs[event]?.sortedByDescending { it.priority.value } ?: return@let)
+                        subs[event] =
+                            CopyOnWriteArrayList(subs[event]?.sortedByDescending { it.priority.value } ?: return@let)
                     } else {
                         // event hasn't been added before so it creates a new instance
                         // sorting does not matter here since there is no other elements to compete against
@@ -79,7 +80,7 @@ object EventBus {
      * @param obj An instance of the class which you would like to register as an event
      */
     fun register(vararg obj: Any) =
-            obj.forEach(this::register)
+        obj.forEach(this::register)
 
     /**
      * Unregisters all methods of the class instance from the event system
@@ -88,9 +89,9 @@ object EventBus {
      * @param obj An instance of the class which you would like to register as an event
      */
     fun unregister(obj: Any) =
-            this.subscriptions.values.forEach { map ->
-                map.removeIf { it.instance == obj }
-            }
+        this.subscriptions.values.forEach { map ->
+            map.removeIf { it.instance == obj }
+        }
 
     /**
      * Unregisters all methods of the class from the event system
@@ -99,9 +100,9 @@ object EventBus {
      * @param clazz An instance of the class which you would like to register as an event
      */
     fun unregister(clazz: Class<*>) =
-            this.subscriptions.values.forEach { map ->
-                map.removeIf { it.instance.javaClass == clazz }
-            }
+        this.subscriptions.values.forEach { map ->
+            map.removeIf { it.instance.javaClass == clazz }
+        }
 
     /**
      * Invokes all of the methods which are inside of the classes
@@ -111,16 +112,16 @@ object EventBus {
      */
     fun post(event: Any) {
         this.subscriptions[event.javaClass]
-                ?.forEach { sub ->
-                    try {
-                        sub.method.invoke(sub.instance, event)
-                    } catch (e: Exception) {
-                        if (e is InvocationTargetException) {
-                            e.targetException.printStackTrace()
-                        }
-                        e.printStackTrace()
+            ?.forEach { sub ->
+                try {
+                    sub.method.invoke(sub.instance, event)
+                } catch (e: Exception) {
+                    if (e is InvocationTargetException) {
+                        e.targetException.printStackTrace()
                     }
+                    e.printStackTrace()
                 }
+            }
     }
 
 }

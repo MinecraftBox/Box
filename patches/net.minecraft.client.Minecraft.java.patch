@@ -1,10 +1,11 @@
 --- original/net/minecraft/client/Minecraft.java
 +++ changed/net/minecraft/client/Minecraft.java
-@@ -35,6 +35,12 @@
+@@ -35,6 +35,13 @@
  import java.util.concurrent.Executors;
  import java.util.concurrent.FutureTask;
  import javax.imageio.ImageIO;
 +
++import dev.minecraftbox.MinecraftBox;
 +import dev.minecraftbox.event.EventBus;
 +import dev.minecraftbox.event.events.core.InitializationEvent;
 +import dev.minecraftbox.event.events.core.PreInitializationEvent;
@@ -13,15 +14,16 @@
  import net.minecraft.block.Block;
  import net.minecraft.block.material.Material;
  import net.minecraft.client.audio.MusicTicker;
-@@ -408,6 +414,7 @@
+@@ -408,6 +415,8 @@
       * Starts the game: initializes the canvas, the title, the settings, etcetera.
       */
      private void startGame() throws LWJGLException, IOException {
++        EventBus.INSTANCE.register(MinecraftBox.INSTANCE);
 +        EventBus.INSTANCE.post(new PreInitializationEvent());
          this.gameSettings = new GameSettings(this, this.mcDataDir);
          this.defaultResourcePacks.add(this.mcDefaultResourcePack);
          this.startTimerHackThread();
-@@ -524,6 +531,8 @@
+@@ -524,6 +533,8 @@
          }
  
          this.renderGlobal.makeEntityOutlineShader();
@@ -30,7 +32,7 @@
      }
  
      private void registerMetadataSerializers() {
-@@ -863,9 +872,11 @@
+@@ -863,9 +874,11 @@
              int j = scaledresolution.getScaledHeight();
              ((GuiScreen)guiScreenIn).setWorldAndResolution(this, i, j);
              this.skipRenderWorld = false;
