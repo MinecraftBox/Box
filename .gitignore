@@ -1,0 +1,7 @@
+/.gradle/
+/.idea/
+/build/
+/out/
+/src/minecraft/
+/run/
+.DS_Store
