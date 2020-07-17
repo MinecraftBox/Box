@@ -6,7 +6,7 @@ import java.util.zip.ZipFile
 fun File.isJar() = extension == "jar"
 
 fun ZipFile.readFile(file: File) = try {
-    getInputStream(getEntry(file.absolutePath))
+    getInputStream(getEntry(file.path))
         .bufferedReader()
         .readText()
 } catch (e: Exception) {
