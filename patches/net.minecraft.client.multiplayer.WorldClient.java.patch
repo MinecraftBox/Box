@@ -1,0 +1,46 @@
+--- original/net/minecraft/client/multiplayer/WorldClient.java
++++ changed/net/minecraft/client/multiplayer/WorldClient.java
+@@ -178,9 +178,7 @@
+     protected void onEntityAdded(Entity entityIn) {
+         super.onEntityAdded(entityIn);
+ 
+-        if (this.entitySpawnQueue.contains(entityIn)) {
+-            this.entitySpawnQueue.remove(entityIn);
+-        }
++        this.entitySpawnQueue.remove(entityIn);
+     }
+ 
+     protected void onEntityRemoved(Entity entityIn) {
+@@ -290,24 +288,23 @@
+     public void removeAllEntities() {
+         this.loadedEntityList.removeAll(this.unloadedEntityList);
+ 
+-        for (int i = 0; i < this.unloadedEntityList.size(); ++i) {
+-            Entity entity = (Entity)this.unloadedEntityList.get(i);
+-            int j = entity.chunkCoordX;
+-            int k = entity.chunkCoordZ;
++        for (Entity value : this.unloadedEntityList) {
++            int j = value.chunkCoordX;
++            int k = value.chunkCoordZ;
+ 
+-            if (entity.addedToChunk && this.isChunkLoaded(j, k, true)) {
+-                this.getChunkFromChunkCoords(j, k).removeEntity(entity);
++            if (value.addedToChunk && this.isChunkLoaded(j, k, true)) {
++                this.getChunkFromChunkCoords(j, k).removeEntity(value);
+             }
+         }
+ 
+-        for (int l = 0; l < this.unloadedEntityList.size(); ++l) {
+-            this.onEntityRemoved((Entity)this.unloadedEntityList.get(l));
++        for (Entity entity : this.unloadedEntityList) {
++            this.onEntityRemoved((Entity) entity);
+         }
+ 
+         this.unloadedEntityList.clear();
+ 
+         for (int i1 = 0; i1 < this.loadedEntityList.size(); ++i1) {
+-            Entity entity1 = (Entity)this.loadedEntityList.get(i1);
++            Entity entity1 = this.loadedEntityList.get(i1);
+ 
+             if (entity1.ridingEntity != null) {
+                 if (!entity1.ridingEntity.isDead && entity1.ridingEntity.riddenByEntity == entity1) {

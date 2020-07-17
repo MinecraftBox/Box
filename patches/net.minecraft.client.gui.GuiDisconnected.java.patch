@@ -1,0 +1,20 @@
+--- original/net/minecraft/client/gui/GuiDisconnected.java
++++ changed/net/minecraft/client/gui/GuiDisconnected.java
+@@ -2,6 +2,9 @@
+ 
+ import java.io.IOException;
+ import java.util.List;
++
++import dev.minecraftbox.event.EventBus;
++import dev.minecraftbox.event.events.networking.ServerLeaveEvent;
+ import net.minecraft.client.resources.I18n;
+ import net.minecraft.util.IChatComponent;
+ import net.minecraftforge.fml.relauncher.Side;
+@@ -16,6 +19,7 @@
+     private int field_175353_i;
+ 
+     public GuiDisconnected(GuiScreen screen, String reasonLocalizationKey, IChatComponent chatComp) {
++        EventBus.INSTANCE.post(new ServerLeaveEvent());
+         this.parentScreen = screen;
+         this.reason = I18n.format(reasonLocalizationKey, new Object[0]);
+         this.message = chatComp;

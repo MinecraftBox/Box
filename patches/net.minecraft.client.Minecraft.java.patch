@@ -1,6 +1,6 @@
 --- original/net/minecraft/client/Minecraft.java
 +++ changed/net/minecraft/client/Minecraft.java
-@@ -35,6 +35,13 @@
+@@ -35,6 +35,14 @@
  import java.util.concurrent.Executors;
  import java.util.concurrent.FutureTask;
  import javax.imageio.ImageIO;
@@ -11,10 +11,11 @@
 +import dev.minecraftbox.event.events.core.PreInitializationEvent;
 +import dev.minecraftbox.event.events.gui.GuiCloseEvent;
 +import dev.minecraftbox.event.events.gui.GuiOpenEvent;
++import dev.minecraftbox.event.events.world.WorldLoadEvent;
  import net.minecraft.block.Block;
  import net.minecraft.block.material.Material;
  import net.minecraft.client.audio.MusicTicker;
-@@ -408,6 +415,8 @@
+@@ -408,6 +416,8 @@
       * Starts the game: initializes the canvas, the title, the settings, etcetera.
       */
      private void startGame() throws LWJGLException, IOException {
@@ -23,7 +24,7 @@
          this.gameSettings = new GameSettings(this, this.mcDataDir);
          this.defaultResourcePacks.add(this.mcDefaultResourcePack);
          this.startTimerHackThread();
-@@ -524,6 +533,8 @@
+@@ -524,6 +534,8 @@
          }
  
          this.renderGlobal.makeEntityOutlineShader();
@@ -32,7 +33,7 @@
      }
  
      private void registerMetadataSerializers() {
-@@ -857,6 +868,9 @@
+@@ -857,6 +869,9 @@
          this.currentScreen = (GuiScreen)guiScreenIn;
  
          if (guiScreenIn != null) {
@@ -42,7 +43,7 @@
              this.setIngameNotInFocus();
              ScaledResolution scaledresolution = new ScaledResolution(this);
              int i = scaledresolution.getScaledWidth();
-@@ -864,6 +878,9 @@
+@@ -864,6 +879,9 @@
              ((GuiScreen)guiScreenIn).setWorldAndResolution(this, i, j);
              this.skipRenderWorld = false;
          } else {
@@ -52,3 +53,14 @@
              this.mcSoundHandler.resumeSounds();
              this.setIngameFocus();
          }
+@@ -1927,6 +1945,10 @@
+      * par2Str is displayed on the loading screen to the user unloads the current world first
+      */
+     public void loadWorld(WorldClient worldClientIn, String loadingMessage) {
++        WorldLoadEvent worldLoadEvent = new WorldLoadEvent(worldClientIn, loadingMessage);
++        EventBus.INSTANCE.post(worldLoadEvent);
++        if (worldLoadEvent.isCancelled()) return;
++
+         if (worldClientIn == null) {
+             NetHandlerPlayClient nethandlerplayclient = this.getNetHandler();
+ 
