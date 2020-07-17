@@ -6,7 +6,7 @@ import java.io.File
 
 @Suppress("unused")
 class BoxTweaker : ITweaker {
-    private val boxArguments = arrayListOf<String>()
+    private val boxArguments = mutableListOf<String>()
 
     override fun acceptOptions(args: MutableList<String>, gameDir: File, assetsDir: File, profile: String) {
         boxArguments += args + listOf(
