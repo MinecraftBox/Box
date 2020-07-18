@@ -1,0 +1,11 @@
+--- original/net/minecraft/client/gui/GuiNewChat.java
++++ changed/net/minecraft/client/gui/GuiNewChat.java
+@@ -3,6 +3,8 @@
+ import com.google.common.collect.Lists;
+ import java.util.Iterator;
+ import java.util.List;
++
++import dev.minecraftbox.event.EventBus;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.client.renderer.GlStateManager;
+ import net.minecraft.entity.player.EntityPlayer;

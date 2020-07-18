@@ -1,6 +1,6 @@
 --- original/net/minecraft/client/Minecraft.java
 +++ changed/net/minecraft/client/Minecraft.java
-@@ -35,6 +35,14 @@
+@@ -35,6 +35,15 @@
  import java.util.concurrent.Executors;
  import java.util.concurrent.FutureTask;
  import javax.imageio.ImageIO;
@@ -8,6 +8,7 @@
 +import dev.minecraftbox.MinecraftBox;
 +import dev.minecraftbox.event.EventBus;
 +import dev.minecraftbox.event.events.core.InitializationEvent;
++import dev.minecraftbox.event.events.core.PostInitializationEvent;
 +import dev.minecraftbox.event.events.core.PreInitializationEvent;
 +import dev.minecraftbox.event.events.gui.GuiCloseEvent;
 +import dev.minecraftbox.event.events.gui.GuiOpenEvent;
@@ -15,16 +16,18 @@
  import net.minecraft.block.Block;
  import net.minecraft.block.material.Material;
  import net.minecraft.client.audio.MusicTicker;
-@@ -408,6 +416,8 @@
+@@ -408,6 +417,10 @@
       * Starts the game: initializes the canvas, the title, the settings, etcetera.
       */
      private void startGame() throws LWJGLException, IOException {
 +        EventBus.INSTANCE.register(MinecraftBox.INSTANCE);
++        EventBus.INSTANCE.post(new PostInitializationEvent());
++
 +        EventBus.INSTANCE.post(new PreInitializationEvent());
          this.gameSettings = new GameSettings(this, this.mcDataDir);
          this.defaultResourcePacks.add(this.mcDefaultResourcePack);
          this.startTimerHackThread();
-@@ -524,6 +534,8 @@
+@@ -524,6 +537,8 @@
          }
  
          this.renderGlobal.makeEntityOutlineShader();
@@ -33,7 +36,7 @@
      }
  
      private void registerMetadataSerializers() {
-@@ -857,6 +869,9 @@
+@@ -857,6 +872,9 @@
          this.currentScreen = (GuiScreen)guiScreenIn;
  
          if (guiScreenIn != null) {
@@ -43,7 +46,7 @@
              this.setIngameNotInFocus();
              ScaledResolution scaledresolution = new ScaledResolution(this);
              int i = scaledresolution.getScaledWidth();
-@@ -864,6 +879,9 @@
+@@ -864,6 +882,9 @@
              ((GuiScreen)guiScreenIn).setWorldAndResolution(this, i, j);
              this.skipRenderWorld = false;
          } else {
@@ -53,7 +56,7 @@
              this.mcSoundHandler.resumeSounds();
              this.setIngameFocus();
          }
-@@ -1927,6 +1945,10 @@
+@@ -1927,6 +1948,10 @@
       * par2Str is displayed on the loading screen to the user unloads the current world first
       */
      public void loadWorld(WorldClient worldClientIn, String loadingMessage) {
