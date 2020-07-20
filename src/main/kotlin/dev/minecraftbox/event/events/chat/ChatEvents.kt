@@ -4,3 +4,5 @@ import dev.minecraftbox.event.CancellableEvent
 import net.minecraft.util.IChatComponent
 
 class ServerChatEvent(val component: IChatComponent) : CancellableEvent()
+
+class PlayerChatEvent(val message: String) : CancellableEvent()
