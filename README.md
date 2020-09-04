@@ -15,6 +15,8 @@ Please also use [Gitmoji](https://gitmoji.carloscuesta.me/) when creating a pull
 
 Gitmoji allows the repositories to look more well-kept and more modern.
 
+![Image](https://www.yourkit.com/images/yklogo.png)
+
 YourKit supports open source projects with innovative and intelligent tools
 for monitoring and profiling Java and .NET applications.
 YourKit is the creator of <a href="https://www.yourkit.com/java/profiler/">YourKit Java Profiler</a>,
