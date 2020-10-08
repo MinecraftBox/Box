@@ -19,16 +19,18 @@ import java.util.zip.ZipFile
  * @since 0.1-DEV
  */
 
-class NormalEnvironmentStrategy(private val modFolder: File) : LoadingStrategy {
+class NormalEnvironmentStrategy(private val modFolder: File, val metadataFile: File) : LoadingStrategy {
     override suspend fun load() {
         modFolder
             .listFiles()
             ?.filter { it.isJar() }
-            ?.map { it to convert<ModFileData>(ZipFile(it).readFile(File("mod.info"))) }
+            ?.map { it to convert<ModFileData>(ZipFile(it).readFile(metadataFile)) }
             ?.forEach {
-                val childUrlClassLoader = URLClassLoader(arrayOf<URL>(it.first.toURI().toURL()), javaClass.classLoader)
+                val childUrlClassLoader =
+                    URLClassLoader(arrayOf<URL>(it.first.toURI().toURL()), this::class.java.classLoader)
                 try {
-                    loadMod(Class.forName(it.second.mainClass, true, childUrlClassLoader).newInstance())
+                    val clazz = Class.forName(it.second.mainClass, true, childUrlClassLoader)
+                    loadMod(clazz.newInstance())
                 } catch (e: Exception) {
                     // Stop crashing when mod has an error and ignore instead
                     e.printStackTrace()

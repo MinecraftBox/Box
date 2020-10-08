@@ -5,7 +5,7 @@ package dev.minecraftbox.event.events.core
  *
  * @author ChachyDev
  */
-class PostInitializationEvent
+class PrePreInitializationEvent
 
 class PreInitializationEvent
 

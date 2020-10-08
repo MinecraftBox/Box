@@ -15,7 +15,8 @@ import java.util.concurrent.atomic.AtomicInteger
 object JavaAsyncoHandler {
     private val threadCounter = AtomicInteger(0)
 
-    private val SERVICE = Executors.newCachedThreadPool { task -> Thread(task, "Box Thread " + threadCounter.getAndIncrement()) }
+    private val SERVICE =
+        Executors.newCachedThreadPool { task -> Thread(task, "Box Thread " + threadCounter.getAndIncrement()) }
 
     fun runAsync(task: Runnable) {
         SERVICE.execute(task)

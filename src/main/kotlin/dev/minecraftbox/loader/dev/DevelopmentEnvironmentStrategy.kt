@@ -3,6 +3,7 @@ package dev.minecraftbox.loader.dev
 import dev.minecraftbox.loader.LoadingStrategy
 import dev.minecraftbox.utils.data.ModFileData
 import dev.minecraftbox.utils.file.convert
+import java.io.File
 
 /**
  * Loads the mod that is currently being ran from the development enviorment.
@@ -11,13 +12,13 @@ import dev.minecraftbox.utils.file.convert
  * @since 0.1-DEV
  */
 
-class DevelopmentEnvironmentStrategy : LoadingStrategy {
+class DevelopmentEnvironmentStrategy(val metadataFile: File) : LoadingStrategy {
     override suspend fun load() {
         val parsedModFile: ModFileData
         try {
             parsedModFile = convert(
                 this::class.java
-                    .getResourceAsStream("/mod.info")
+                    .getResourceAsStream("/${metadataFile.path}")
                     .bufferedReader()
                     .readText()
             )
