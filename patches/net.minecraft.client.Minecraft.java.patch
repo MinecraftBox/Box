@@ -8,7 +8,7 @@
 +import dev.minecraftbox.MinecraftBox;
 +import dev.minecraftbox.event.EventBus;
 +import dev.minecraftbox.event.events.core.InitializationEvent;
-+import dev.minecraftbox.event.events.core.PostInitializationEvent;
++import dev.minecraftbox.event.events.core.PrePreInitializationEvent;
 +import dev.minecraftbox.event.events.core.PreInitializationEvent;
 +import dev.minecraftbox.event.events.gui.GuiCloseEvent;
 +import dev.minecraftbox.event.events.gui.GuiOpenEvent;
@@ -21,7 +21,7 @@
       */
      private void startGame() throws LWJGLException, IOException {
 +        EventBus.INSTANCE.register(MinecraftBox.INSTANCE);
-+        EventBus.INSTANCE.post(new PostInitializationEvent());
++        EventBus.INSTANCE.post(new PrePreInitializationEvent());
 +
 +        EventBus.INSTANCE.post(new PreInitializationEvent());
          this.gameSettings = new GameSettings(this, this.mcDataDir);

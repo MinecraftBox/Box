@@ -10,11 +10,11 @@
  import net.minecraft.block.material.Material;
  import net.minecraft.client.Minecraft;
  import net.minecraft.client.renderer.GlStateManager;
-@@ -298,6 +301,7 @@
-         this.mc.mcProfiler.endSection();
-         GlStateManager.popMatrix();
-         scoreobjective1 = scoreboard.getObjectiveInDisplaySlot(0);
-+        EventBus.INSTANCE.post(new RenderHUDEvent(partialTicks));
+@@ -306,6 +309,7 @@
+             this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
+         }
  
-         if (!this.mc.gameSettings.keyBindPlayerList.isKeyDown() || this.mc.isIntegratedServerRunning() && this.mc.thePlayer.sendQueue.getPlayerInfoMap().size() <= 1 && scoreobjective1 == null) {
-             this.overlayPlayerList.updatePlayerList(false);
++        EventBus.INSTANCE.post(new RenderHUDEvent(partialTicks));
+         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+         GlStateManager.disableLighting();
+         GlStateManager.enableAlpha();
