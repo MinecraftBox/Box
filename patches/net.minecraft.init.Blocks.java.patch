@@ -1,13 +1,6 @@
 --- original/net/minecraft/init/Blocks.java
 +++ changed/net/minecraft/init/Blocks.java
-@@ -1,5 +1,6 @@
- package net.minecraft.init;
- 
-+import dev.minecraftbox.utils.JavaAsyncoHandler;
- import net.minecraft.block.Block;
- import net.minecraft.block.BlockBeacon;
- import net.minecraft.block.BlockBush;
-@@ -240,7 +241,7 @@
+@@ -240,7 +240,7 @@
       * @param blockName The block's name to register
       */
      private static Block getRegisteredBlock(String blockName) {
