@@ -1,5 +1,6 @@
 package dev.minecraftbox.loader.loader
 
+import dev.minecraftbox.asm.transformer.interfaces.ITransformer
 import dev.minecraftbox.loader.Loader
 import dev.minecraftbox.loader.dev.DevelopmentEnvironmentStrategy
 import dev.minecraftbox.loader.normal.NormalEnvironmentStrategy
@@ -19,5 +20,14 @@ class ModLoader : Loader<ModFileData> {
         strategies.forEach {
             mods.addAll(it.load())
         }
+    }
+
+    override fun getTransformers(): List<ITransformer> {
+        val transformers = mutableListOf<ITransformer>()
+        strategies.forEach {
+            transformers.addAll(it.collectTransformers())
+        }
+
+        return transformers
     }
 }

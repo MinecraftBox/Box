@@ -19,7 +19,7 @@ class BoxTweaker : ITweaker {
     override fun getLaunchTarget() = "net.minecraft.client.main.Main"
 
     override fun injectIntoClassLoader(classLoader: LaunchClassLoader) {
-
+        classLoader.registerTransformer("dev.minecraftbox.asm.transformer.ClassTransformer")
     }
 
     override fun getLaunchArguments(): Array<String> = boxArguments.toTypedArray()

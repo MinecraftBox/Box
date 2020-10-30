@@ -9,5 +9,5 @@ object ModLoader {
      *
      * Default value: Default mod loader, can be changed in case of beta changes to mod loading system with easy switching access etc.
      */
-    var loader : Loader<*> = ModLoader()
+    var loader: Loader<*> = ModLoader()
 }

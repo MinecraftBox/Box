@@ -1,6 +1,7 @@
 package dev.minecraftbox.loader.dev
 
-import dev.minecraftbox.loader.LoadingStrategy
+import dev.minecraftbox.asm.transformer.interfaces.ITransformer
+import dev.minecraftbox.loader.EnvironmentStrategy
 import dev.minecraftbox.utils.data.ModFileData
 import dev.minecraftbox.utils.file.convert
 import java.io.File
@@ -12,9 +13,16 @@ import java.io.File
  * @since 0.1-DEV
  */
 
-class DevelopmentEnvironmentStrategy(val metadataFile: File) : LoadingStrategy<ModFileData> {
-    override suspend fun load() : List<ModFileData> {
-        val parsedModFile: ModFileData
+class DevelopmentEnvironmentStrategy(val metadataFile: File) : EnvironmentStrategy<ModFileData> {
+    var parsedModFile: ModFileData? = null
+
+    override suspend fun load(): List<ModFileData> {
+        loadMod(Class.forName(parsedModFile?.mainClass).newInstance())
+        return listOf(parsedModFile ?: return emptyList())
+    }
+
+    override fun collectTransformers(): List<ITransformer> {
+        val transformers = mutableListOf<ITransformer>()
         try {
             parsedModFile = convert(
                 this::class.java
@@ -22,13 +30,18 @@ class DevelopmentEnvironmentStrategy(val metadataFile: File) : LoadingStrategy<M
                     .bufferedReader()
                     .readText()
             )
+
+            if (parsedModFile?.transformers != null) {
+                val fileTransformers = parsedModFile?.transformers ?: return emptyList()
+                fileTransformers.forEach {
+                    transformers.add(Class.forName(it) as ITransformer)
+                }
+            }
         } catch (ignored: Exception) {
             // Ignore as this doesn't really matter and not continue the load
             return emptyList()
         }
 
-        loadMod(Class.forName(parsedModFile.mainClass).newInstance())
-
-        return listOf(parsedModFile)
+        return transformers
     }
 }

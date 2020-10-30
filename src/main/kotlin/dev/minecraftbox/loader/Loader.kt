@@ -1,9 +1,13 @@
 package dev.minecraftbox.loader
 
-interface Loader<T> {
-    val mods : MutableList<T>
+import dev.minecraftbox.asm.transformer.interfaces.ITransformer
 
-    val strategies : List<LoadingStrategy<T>>
+interface Loader<T> {
+    val mods: MutableList<T>
+
+    val strategies: List<EnvironmentStrategy<T>>
 
     suspend fun loadMods()
+
+    fun getTransformers(): List<ITransformer>
 }
