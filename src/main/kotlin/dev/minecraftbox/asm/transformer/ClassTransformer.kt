@@ -49,9 +49,3 @@ class ClassTransformer : IClassTransformer {
 
     fun collectModTransformers() = ModLoader.loader.getTransformers()
 }
-
-fun <K, V> MutableMap<K, MutableList<V>>.put(key: K, value: V) {
-    val list = get(key) ?: return
-    list.add(value)
-    set(key, list)
-}
