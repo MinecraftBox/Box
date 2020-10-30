@@ -11,10 +11,10 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm'   version '1.3.72'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.0'
 }
 
-def kotlinVersion = '1.3.72'
+def kotlinVersion = '1.4.0'
 
 apply plugin: 'club.ampthedev.mcgradle'
 
@@ -55,7 +55,7 @@ dependencies {
     embed('net.minecraft:launchwrapper:1.12') {
         exclude module: 'lwjgl'
     }
-    embed "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
+    embed "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.0"
 
     embed 'com.github.half-cambodian-hacker-man:Koffee:2cae23d0df'
 }
