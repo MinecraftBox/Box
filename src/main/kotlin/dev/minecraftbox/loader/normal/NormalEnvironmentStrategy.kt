@@ -19,8 +19,10 @@ import java.util.zip.ZipFile
  * @since 0.1-DEV
  */
 
-class NormalEnvironmentStrategy(private val modFolder: File, val metadataFile: File) : LoadingStrategy {
-    override suspend fun load() {
+class NormalEnvironmentStrategy(private val modFolder: File, val metadataFile: File) : LoadingStrategy<ModFileData> {
+    override suspend fun load(): List<ModFileData> {
+        val md = mutableListOf<ModFileData>()
+
         modFolder
             .listFiles()
             ?.filter { it.isJar() }
@@ -31,10 +33,12 @@ class NormalEnvironmentStrategy(private val modFolder: File, val metadataFile: F
                 try {
                     val clazz = Class.forName(it.second.mainClass, true, childUrlClassLoader)
                     loadMod(clazz.newInstance())
+                    md.add(it.second)
                 } catch (e: Exception) {
                     // Stop crashing when mod has an error and ignore instead
                     e.printStackTrace()
                 }
             }
+        return md
     }
 }

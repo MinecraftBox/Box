@@ -12,8 +12,8 @@ import java.io.File
  * @since 0.1-DEV
  */
 
-class DevelopmentEnvironmentStrategy(val metadataFile: File) : LoadingStrategy {
-    override suspend fun load() {
+class DevelopmentEnvironmentStrategy(val metadataFile: File) : LoadingStrategy<ModFileData> {
+    override suspend fun load() : List<ModFileData> {
         val parsedModFile: ModFileData
         try {
             parsedModFile = convert(
@@ -24,9 +24,11 @@ class DevelopmentEnvironmentStrategy(val metadataFile: File) : LoadingStrategy {
             )
         } catch (ignored: Exception) {
             // Ignore as this doesn't really matter and not continue the load
-            return
+            return emptyList()
         }
 
         loadMod(Class.forName(parsedModFile.mainClass).newInstance())
+
+        return listOf(parsedModFile)
     }
 }
