@@ -72,3 +72,5 @@ jar {
     exclude '**/*.kotlin_module'
     exclude '**/*.kotlin_builtins'
 }
+
+tasks.reobf.enabled false
