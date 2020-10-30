@@ -15,7 +15,7 @@ object MinecraftBox {
     @InvokeEvent
     fun onPostInitialization(event: PrePreInitializationEvent) {
         launchCoroutine("Mod Loader") {
-            ModLoader.loadMods()
+            ModLoader.loader.loadMods()
         }
     }
 

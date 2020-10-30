@@ -1,22 +1,13 @@
 package dev.minecraftbox.loader
 
-import dev.minecraftbox.loader.dev.DevelopmentEnvironmentStrategy
-import dev.minecraftbox.loader.normal.NormalEnvironmentStrategy
-import dev.minecraftbox.utils.data.ModFileData
-import net.minecraft.client.Minecraft
-import java.io.File
+import dev.minecraftbox.loader.loader.ModLoader
 
-object ModLoader : Loader<ModFileData> {
-    override val mods: MutableList<ModFileData> = mutableListOf()
+object ModLoader {
 
-    override val strategies = listOf(
-        DevelopmentEnvironmentStrategy(File("mod.info")),
-        NormalEnvironmentStrategy(File(Minecraft.getMinecraft().mcDataDir, "mods"), File("mod.info"))
-    )
-
-    override suspend fun loadMods() {
-        strategies.forEach {
-            mods.addAll(it.load())
-        }
-    }
+    /**
+     * Access currently set loader
+     *
+     * Default value: Default mod loader, can be changed in case of beta changes to mod loading system with easy switching access etc.
+     */
+    var loader : Loader<*> = ModLoader()
 }
