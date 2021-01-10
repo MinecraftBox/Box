@@ -1,0 +1,27 @@
+--- original/net/minecraft/client/gui/GuiMainMenu.java
++++ changed/net/minecraft/client/gui/GuiMainMenu.java
+@@ -10,6 +10,8 @@
+ import java.util.List;
+ import java.util.Random;
+ import java.util.concurrent.atomic.AtomicInteger;
++
++import dev.box.title.TitleManager;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.client.renderer.GlStateManager;
+ import net.minecraft.client.renderer.OpenGlHelper;
+@@ -488,9 +490,13 @@
+             s = s + " Demo";
+         }
+ 
++        s += " " + TitleManager.INSTANCE.toString();
++
+         this.drawString(this.fontRendererObj, s, 2, this.height - 10, -1);
+-        String s1 = "Copyright Mojang AB. Do not distribute!";
+-        this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2, this.height - 10, -1);
++        String s1 = "Created by Box Development.";
++        String s2 = "Not associated with Mojang.";
++        this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2, this.height - 20, -1);
++        this.drawString(this.fontRendererObj, s2, this.width - this.fontRendererObj.getStringWidth(s2) - 2, this.height - 10, -1);
+ 
+         if (this.openGLWarning1 != null && this.openGLWarning1.length() > 0) {
+             drawRect(this.field_92022_t - 2, this.field_92021_u - 2, this.field_92020_v + 2, this.field_92019_w - 1, 1428160512);

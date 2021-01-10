@@ -1,0 +1,29 @@
+--- original/net/minecraft/client/Minecraft.java
++++ changed/net/minecraft/client/Minecraft.java
+@@ -35,6 +35,9 @@
+ import java.util.concurrent.Executors;
+ import java.util.concurrent.FutureTask;
+ import javax.imageio.ImageIO;
++
++import dev.box.Box;
++import dev.box.title.TitleManager;
+ import net.minecraft.block.Block;
+ import net.minecraft.block.material.Material;
+ import net.minecraft.client.audio.MusicTicker;
+@@ -408,6 +411,7 @@
+      * Starts the game: initializes the canvas, the title, the settings, etcetera.
+      */
+     private void startGame() throws LWJGLException, IOException {
++        Box.INSTANCE.start(dev.box.net.minecraft.client.Minecraft.INSTANCE);
+         this.gameSettings = new GameSettings(this, this.mcDataDir);
+         this.defaultResourcePacks.add(this.mcDefaultResourcePack);
+         this.startTimerHackThread();
+@@ -545,7 +549,7 @@
+ 
+     private void createDisplay() throws LWJGLException {
+         Display.setResizable(true);
+-        Display.setTitle("Minecraft 1.8.9");
++        Display.setTitle("Minecraft 1.8.9 " + TitleManager.INSTANCE.toString());
+ 
+         try {
+             Display.create((new PixelFormat()).withDepthBits(24));
