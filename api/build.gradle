@@ -1,0 +1,21 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://libraries.minecraft.net' }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    compileOnly group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
+    compileOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.0'
+    implementation('net.minecraft:launchwrapper:1.12') {
+        exclude module: 'lwjgl'
+    }
+    implementation project(":modloader")
+}

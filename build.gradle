@@ -1,0 +1,24 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+}
+
+subprojects {
+    if (it.name != "api") {
+        plugins.withType(JavaPlugin) {
+            dependencies {
+                implementation project(":api")
+            }
+        }
+    }
+}
