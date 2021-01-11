@@ -1,0 +1,28 @@
+--- original/net/minecraft/client/gui/screen/MainMenuScreen.java
++++ changed/net/minecraft/client/gui/screen/MainMenuScreen.java
+@@ -9,6 +9,8 @@
+ import java.util.concurrent.CompletableFuture;
+ import java.util.concurrent.Executor;
+ import javax.annotation.Nullable;
++
++import dev.box.title.TitleManager;
+ import net.minecraft.client.gui.AccessibilityScreen;
+ import net.minecraft.client.gui.DialogTexts;
+ import net.minecraft.client.gui.toasts.SystemToast;
+@@ -260,11 +262,14 @@
+                 s = s + I18n.format("menu.modded");
+             }
+ 
++            s = s + " " + TitleManager.INSTANCE.toString();
++
+             func_238476_c_(p_230430_1_, this.field_230712_o_, s, 2, this.field_230709_l_ - 10, 16777215 | l);
+-            func_238476_c_(p_230430_1_, this.field_230712_o_, "Copyright Mojang AB. Do not distribute!", this.field_193979_N, this.field_230709_l_ - 10, 16777215 | l);
++            func_238476_c_(p_230430_1_, this.field_230712_o_, "Created by Box Development.", this.field_193979_N + 50, this.field_230709_l_ - 20, 16777215 | l);
++            func_238476_c_(p_230430_1_, this.field_230712_o_, "Not associated with Mojang.", this.field_193979_N + 57, this.field_230709_l_ - 10, 16777215 | l);
+ 
+             if (p_230430_2_ > this.field_193979_N && p_230430_2_ < this.field_193979_N + this.field_193978_M && p_230430_3_ > this.field_230709_l_ - 10 && p_230430_3_ < this.field_230709_l_) {
+-                func_238467_a_(p_230430_1_, this.field_193979_N, this.field_230709_l_ - 1, this.field_193979_N + this.field_193978_M, this.field_230709_l_, 16777215 | l);
++                func_238467_a_(p_230430_1_, this.field_193979_N, this.field_230709_l_, this.field_193979_N + this.field_193978_M, this.field_230709_l_, 16777215 | l);
+             }
+ 
+             for (Widget widget : this.field_230710_m_) {

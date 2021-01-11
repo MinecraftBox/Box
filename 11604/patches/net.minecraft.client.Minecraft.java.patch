@@ -1,0 +1,29 @@
+--- original/net/minecraft/client/Minecraft.java
++++ changed/net/minecraft/client/Minecraft.java
+@@ -42,6 +42,9 @@
+ import java.util.function.Supplier;
+ import java.util.stream.Stream;
+ import javax.annotation.Nullable;
++
++import dev.box.Box;
++import dev.box.title.TitleManager;
+ import net.minecraft.block.Block;
+ import net.minecraft.block.BlockRenderType;
+ import net.minecraft.block.BlockState;
+@@ -486,6 +489,7 @@
+         this.mcResourceManager.func_219534_a(new GrassColorReloadListener());
+         this.mcResourceManager.func_219534_a(new FoliageColorReloadListener());
+         this.field_195558_d.func_227799_a_("Startup");
++        Box.INSTANCE.start(dev.box.net.minecraft.client.Minecraft.INSTANCE);
+         RenderSystem.setupDefaultState(0, 0, this.field_195558_d.func_198109_k(), this.field_195558_d.func_198091_l());
+         this.field_195558_d.func_227799_a_("Post startup");
+         this.field_184127_aH = BlockColors.func_186723_a();
+@@ -574,6 +578,8 @@
+             }
+         }
+ 
++        stringbuilder.append(" ").append(TitleManager.INSTANCE.toString());
++
+         return stringbuilder.toString();
+     }
+ 
