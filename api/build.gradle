@@ -17,5 +17,7 @@ dependencies {
     implementation('net.minecraft:launchwrapper:1.12') {
         exclude module: 'lwjgl'
     }
-    implementation project(":modloader")
+    implementation(project(":modloader")) {
+        exclude module: 'api'
+    }
 }
