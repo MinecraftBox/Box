@@ -22,7 +22,7 @@ object Box {
         logger.info("Marking Box API as started. Loading for Minecraft ${minecraft.version}")
         TitleManager.addTitle("Box $VERSION")
         logger.info("Starting mod discovery")
-        ModDiscovery.discover(boxDir, minecraft, logger)
+        ModDiscovery.discover(boxDir, minecraft.version, logger)
         logger.info("Invoke mod loading")
         Loader.loadMods(ModDiscovery.discoveredMods)
         state = State.LAUNCHING

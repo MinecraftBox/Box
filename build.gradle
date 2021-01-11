@@ -14,7 +14,8 @@ dependencies {
 }
 
 subprojects {
-    if (it.name != "api") {
+    // Excluded modules
+    if (it.name != "api" || it.name != "modloader") {
         plugins.withType(JavaPlugin) {
             dependencies {
                 implementation project(":api")
