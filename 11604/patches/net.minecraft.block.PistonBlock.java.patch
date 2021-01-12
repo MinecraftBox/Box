@@ -1,0 +1,11 @@
+--- original/net/minecraft/block/PistonBlock.java
++++ changed/net/minecraft/block/PistonBlock.java
+@@ -280,7 +280,7 @@
+ 
+             List<BlockPos> list2 = pistonblockstructurehelper.getBlocksToDestroy();
+             BlockState[] ablockstate = new BlockState[list.size() + list2.size()];
+-            Direction direction = extending ? direction : direction.getOpposite();
++            direction = extending ? direction : direction.getOpposite();
+             int j = 0;
+ 
+             for (int k = list2.size() - 1; k >= 0; --k) {

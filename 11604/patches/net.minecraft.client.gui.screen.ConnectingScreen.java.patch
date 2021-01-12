@@ -1,0 +1,19 @@
+--- original/net/minecraft/client/gui/screen/ConnectingScreen.java
++++ changed/net/minecraft/client/gui/screen/ConnectingScreen.java
+@@ -4,6 +4,8 @@
+ import java.net.InetAddress;
+ import java.net.UnknownHostException;
+ import java.util.concurrent.atomic.AtomicInteger;
++
++import dev.box.events.mutliplayer.ServerJoinEvent;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.client.gui.DialogTexts;
+ import net.minecraft.client.gui.chat.NarratorChatListener;
+@@ -53,6 +55,7 @@
+     }
+ 
+     private void connect(final String ip, final int port) {
++        ServerJoinEvent.EVENT.post(new ServerJoinEvent(ip, port));
+         logger.info("Connecting to {}, {}", ip, port);
+         Thread thread = new Thread("Server Connector #" + CONNECTION_ID.incrementAndGet()) {
+             public void run() {
