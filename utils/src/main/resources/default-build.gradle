@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://files.minecraftforge.net/maven' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.asbyth:MCGradle:09f84c1c42906c19e0f7902512a9215481279b4e'
+    }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+apply plugin: 'club.ampthedev.mcgradle'
+
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava.options.encoding = 'UTF-8'
+
+mcgradle {
+    version '%VERSION%'
+    gitVersion = true
+    clientMainClass = 'net.minecraft.launchwrapper.Launch'
+    args += ['--tweakClass', 'dev.box.tweaker.BoxTweaker']
+}
+
+group 'dev.box'
+
+configurations {
+    embed
+    compile.extendsFrom(embed)
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://libraries.minecraft.net' }
+}
+
+// Jitpack compatibility
+if (!new File(projectDir, 'src/minecraft').exists()) {
+    tasks.compileKotlin.dependsOn tasks.setupCIWorkspace
+    tasks.compileJava.dependsOn tasks.setupCIWorkspace
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation('net.minecraft:launchwrapper:1.12') {
+        exclude module: 'lwjgl'
+    }
+    implementation project(":api")
+    implementation project(":box-events")
+}
