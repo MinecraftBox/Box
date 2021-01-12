@@ -34,7 +34,8 @@ fun generateSourceSet(sourceDirectoryFormattedVersion: String, minecraftVersion:
 fun createSourceDirectory(version: String): File {
     val sourceDirectory = File(version)
     println("Creating source directory")
-    sourceDirectory.mkdir()
+    if (!sourceDirectory.exists())
+        sourceDirectory.mkdir()
     return sourceDirectory
 }
 
