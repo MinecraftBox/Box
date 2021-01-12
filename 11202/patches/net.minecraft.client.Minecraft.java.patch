@@ -1,0 +1,29 @@
+--- original/net/minecraft/client/Minecraft.java
++++ changed/net/minecraft/client/Minecraft.java
+@@ -41,6 +41,9 @@
+ import java.util.stream.Collectors;
+ import javax.annotation.Nullable;
+ import javax.imageio.ImageIO;
++
++import dev.box.Box;
++import dev.box.title.TitleManager;
+ import net.minecraft.block.Block;
+ import net.minecraft.block.material.Material;
+ import net.minecraft.block.state.IBlockState;
+@@ -455,6 +458,7 @@
+      * Starts the game: initializes the canvas, the title, the settings, etcetera.
+      */
+     private void startGame() throws LWJGLException, IOException {
++        Box.INSTANCE.start(dev.box.net.minecraft.client.Minecraft.INSTANCE);
+         this.gameSettings = new GameSettings(this, this.mcDataDir);
+         this.field_191950_u = new CreativeSettings(this, this.mcDataDir);
+         this.defaultResourcePacks.add(this.mcDefaultResourcePack);
+@@ -604,7 +608,7 @@
+ 
+     private void createDisplay() throws LWJGLException {
+         Display.setResizable(true);
+-        Display.setTitle("Minecraft 1.12.2");
++        Display.setTitle("Minecraft 1.12.2 " + TitleManager.INSTANCE.toString());
+ 
+         try {
+             Display.create((new PixelFormat()).withDepthBits(24));

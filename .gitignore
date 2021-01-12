@@ -11,6 +11,7 @@
 /api/out/
 /box-events/out/
 /.gradle/
+/utils/out/
 /11202/build/
 /11202/src/minecraft/
 /11202/run/
