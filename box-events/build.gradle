@@ -1,9 +1,9 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'dev.minecraftbox'
+version '23a8a9e-SNAPSHOT'
 
 repositories {
     mavenCentral()

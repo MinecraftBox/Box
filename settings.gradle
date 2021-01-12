@@ -1,7 +1,11 @@
 rootProject.name = 'Box'
 
+// Versions
 include '10809'
 include '11604'
+
+// Others
 include 'api'
 include 'modloader'
+include "box-events"
 
