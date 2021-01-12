@@ -1,9 +1,14 @@
 import java.io.File
 
+/**
+ * THESE METHODS SHOULD NOT BE CALLED ANYWHERE IN THE SOURCECODE.
+ */
+
 fun main() {
     // Enter versions here
     // Example:
-    generateSourceSet("12202", "1.12.2")
+//    generateSourceSet("12202", "1.12.2")
+    appendGitIgnore("12202")
 }
 
 const val INCLUDE = "include \"%s\""
@@ -81,15 +86,14 @@ fun runSetupDevWorkspace(moduleCommand: String, isWindows: Boolean) {
 
 fun appendGitIgnore(version: String) {
     println("Adding files to gitignore")
-    File(".gitignore").let {
-        val list = listOf(
-            "/$version/build/",
+    File(".gitignore").appendText(
+        listOf(
+            "\n/$version/build/",
             "/$version/src/minecraft/",
             "/$version/run/",
             "/$version/out/"
-        )
-        list.forEach { line -> if (list.indexOf(line) == 0) it.appendText("\n$line\n") else it.appendText("$line\n") }
-    }
+        ).joinToString("\n")
+    )
 }
 
 class Resource
