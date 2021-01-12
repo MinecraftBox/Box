@@ -3,6 +3,7 @@
     <option name="MAIN_CLASS_NAME" value="club.ampthedev.mcgradle.Start" />
     <module name="Box.11604.main" />
     <option name="PROGRAM_PARAMETERS" value="--tweakClass dev.box.tweaker.BoxTweaker" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/11604/run" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

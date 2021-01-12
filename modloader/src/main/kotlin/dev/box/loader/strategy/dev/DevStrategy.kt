@@ -1,6 +1,5 @@
 package dev.box.loader.strategy.dev
 
-import dev.box.event.EventBus
 import dev.box.loader.Mod
 import dev.box.loader.strategy.Strategy
 import java.io.File
@@ -23,7 +22,7 @@ object DevStrategy : Strategy {
         while (classes.hasNext()) {
             val next = classes.next()
             if (next.isAnnotationPresent(Mod::class.java)) {
-                EventBus.register(next.newInstance())
+                next.newInstance()
             }
         }
     }

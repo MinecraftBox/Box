@@ -1,6 +1,5 @@
 package dev.box.loader.strategy.prod
 
-import dev.box.event.EventBus
 import dev.box.loader.Mod
 import dev.box.loader.strategy.Strategy
 import java.io.File
@@ -21,7 +20,7 @@ object ProdStrategy : Strategy {
             classLoaderClassesField.isAccessible = true
             val classes = (classLoaderClassesField[cl] as Vector<Class<*>>).toList()
 
-            classes.filter { clazz -> clazz.isAnnotationPresent(Mod::class.java) }.forEach { clazz -> EventBus.register(clazz.newInstance()) }
+            classes.filter { clazz -> clazz.isAnnotationPresent(Mod::class.java) }.forEach { clazz -> clazz.newInstance() }
         }
     }
 }
