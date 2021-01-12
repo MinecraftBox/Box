@@ -1,16 +1,6 @@
 rootProject.name = 'Box'
 
 // Versions
-include "12202"
-include "11202"
-include "11202"
-include "11202"
-include "11202"
-include "11202"
-include "11202"
-include "11202"
-include "11202"
-include "11202"
 include "11202"
 include '10809'
 include '11604'
