@@ -9,4 +9,5 @@
 /modloader/out/
 /.idea/
 /api/out/
+/box-events/out/
 /.gradle/

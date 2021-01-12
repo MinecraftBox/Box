@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Minecraft Client 1.16.4" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="club.ampthedev.mcgradle.Start" />
+    <module name="Box.11604.main" />
+    <option name="PROGRAM_PARAMETERS" value="--tweakClass dev.box.tweaker.BoxTweaker" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

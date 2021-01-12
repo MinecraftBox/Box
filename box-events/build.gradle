@@ -7,8 +7,11 @@ version '23a8a9e-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.21"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
 }
